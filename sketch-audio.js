@@ -36,10 +36,17 @@ const addListeners = () => {
   window.addEventListener('mouseup', () => {
    if (!audioContext) createAudio();
 
-   if (audio.paused) audio.play();
-   else audio.pause();
-  })
-}
+   if (audio.paused) {
+    audio.play();
+    manager.play();
+  }
+
+   else {
+    audio.pause();
+    manager.pause();
+  }
+  });
+};
 
 const createAudio = () => {
   audio = document.createElement('audio');
@@ -71,4 +78,7 @@ const getAverage = (data) => {
 const start = async () => {
   addListeners();
   manager = await canvasSketch(sketch, settings);
-}
+  manager.pauser();
+};
+
+start();
